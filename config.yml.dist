@@ -1,0 +1,40 @@
+# Instance Config
+auth-token: supersecretgitlabadmintoken!
+# Use https!!!
+gitlab-url: https://example_gitlab_url
+
+# creates users with name *NAME-XX*
+users:
+  # NAME - As the Base Name for this user/users
+  test-git:
+    count: 2
+    pass: supersecretuserpassword
+    # set the groups for this user
+    # *name*:*access_rights*
+    # access_rights as the group rights of gitlab as: guest, reporter, developer, maintainer, owner
+    groups:
+      - test-group-1:developer
+      - test-group-2:owner
+
+# Create Projects for single Users or all users
+projects:
+  test-project:
+    import_url: https://example_path_to_a_git_repo
+    owner_conf:
+      # set to "group", "user", "all_users" - All of them will be "Owners"
+      owner: user
+      # Only relevant if owner is set to *user* or *group*
+      name: test-git-1
+    protect_master_branch: False
+  test-project-2:
+    import_url: https://example_path_to_a_git_repo
+    owner_conf:
+      # set to "group", "user", "all_users" - All of them will be "Owners"
+      owner: all_users
+    protect_master_branch: False
+
+groups:
+  # Adds groups, when count > 1 the group is added with name and path "NAME-X" where X is the count.
+  # When count = 1 the group is added with its pure Name
+  test-group:
+    count: 2
